@@ -5,11 +5,11 @@ public class Pessoa {
     private String nome;
 	private Long cpf;
 	private Long rg;
-	private Character sexo;
+	private char sexo;
 	private String dataNasc;
 
 	
-	public Pessoa(String nome, Long cpf, Long rg, Character sexo, String dataNasc) {
+	public Pessoa(String nome, Long cpf, Long rg, char sexo, String dataNasc) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.rg = rg;
@@ -48,12 +48,12 @@ public class Pessoa {
 	}
 
 
-	public Character getSexo() {
+	public char getSexo() {
 		return sexo;
 	}
 
 
-	public void setSexo(Character sexo) {
+	public void setSexo(char sexo) {
 		this.sexo = sexo;
 	}
 

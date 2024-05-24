@@ -3,7 +3,7 @@ package pessoas;
 public final class Medico extends Pessoa {
 	private String crm;
 
-	public Medico(String nome, Long cpf, Long rg, Character sexo, String dataNasc, String crm) {
+	public Medico(String nome, Long cpf, Long rg, char sexo, String dataNasc, String crm) {
 		super(nome, cpf, rg, sexo, dataNasc);
 		this.crm = crm;
 	}

@@ -1,5 +1,8 @@
 package operacoes;
 
+import pessoas.Medico;
+import pessoas.Paciente;
+
 public class Consulta {
     private String pacienteNome; // importar nome do paciente (seria feito com um método?)
 
@@ -17,7 +20,11 @@ public class Consulta {
 		this.tipo = tipo;
 	}
 
-	public String getPacienteNome() {
+	public Consulta(Paciente paciente, Medico medico, String data2, String horario2) {
+        //TODO Auto-generated constructor stub
+    }
+
+    public String getPacienteNome() {
 		return pacienteNome;
 	}
 

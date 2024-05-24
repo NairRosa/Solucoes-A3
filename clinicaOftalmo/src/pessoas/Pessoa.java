@@ -1,5 +1,6 @@
 package pessoas;
 
+
 public class Pessoa {
 
     private String nome;
@@ -67,6 +68,10 @@ public class Pessoa {
 		this.dataNasc = dataNasc;
 	}
 
-
+	//To String
+	@Override
+	public String toString() {
+		return "Pessoa{" + "nome=" + nome + ", cpf=" + cpf + ", sexo=" + sexo + ", rg=" + rg+ ", dataNasc=" + dataNasc + '}';
+	}
 	
 }

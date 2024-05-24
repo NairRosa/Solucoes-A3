@@ -1,7 +1,6 @@
 package executavel;
 
 import pessoas.Paciente;
-import pessoas.Pessoa;
 import pessoas.Medico;
 import operacoes.Consulta;
 
@@ -9,90 +8,172 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
-//import pessoas.Pessoa;
-
 public class Principal {
     public static void main(String[] args) throws Exception {
-        
+
         Scanner sc = new Scanner(System.in);
 
         List<Paciente> listPacientes = new ArrayList<>();
         List<Medico> listMedicos = new ArrayList<>();
-        //List<Consulta> listConsultas = new ArrayList<>();
-        Boolean continuar = true;
+        List<Consulta> listConsultas = new ArrayList<>();
 
+        while (true) {
+            System.out.println("*** MENU ***");
+            System.out.println("[1] Cadastrar novo paciente.");
+            System.out.println("[2] Cadastrar novo médico.");
+            System.out.println("[3] Agendar nova consulta.");
+            System.out.println("[4] Ver relação de pacientes.");
+            System.out.println("[5] Ver relação de médicos.");
+            System.out.println("[6] Ver relação de consultas.");
+            System.out.println("[7] Ver relação de pacientes.");
+            System.out.println("[0] Encerrar programa.");
+            System.out.print("Digite a opção desejada:");
 
-        while (continuar) {
-            System.out.println("Qual entidade deseja adicionar? (Paciente / Médico / Sair)");
-            String entidade = sc.nextLine();
-            
-            switch (entidade.toLowerCase()) {
-                case "paciente":
-                    adicionarPaciente(sc, listPacientes);
+            int op = sc.nextInt();
+            sc.nextLine();
+
+            switch (op) {
+                case 1:
+                    Paciente paciente = cadastrarNovoPaciente(sc);
+                    listPacientes.add(paciente);
                     break;
-                case "médico":
-                    adicionarMedico(sc, listMedicos);
+
+                case 2:
+                    Medico medico = cadastrarNovoMedico(sc);
+                    listMedicos.add(medico);
                     break;
-                case "sair":
-                    continuar = false;
+
+                case 3:
+                    Consulta consulta = agendarNovaConsulta(sc, listPacientes, listMedicos);
+                    listConsultas.add(consulta);
                     break;
+
+                case 4:
+                    if (!listPacientes.isEmpty()) {
+                        System.out.println("Lista de Pacientes:");
+                        for (Paciente p : listPacientes) {
+                            System.out.println(p);
+                        }
+                    } else {
+                        System.out.println("Não há pacientes cadastrados.");
+                    }
+                    break;
+
+                case 5:
+                    if (!listMedicos.isEmpty()) {
+                        System.out.println("Lista de Médicos:");
+                        for (Medico m : listMedicos) {
+                            System.out.println(m);
+                        }
+                    } else {
+                        System.out.println("Não há médicos cadastrados.");
+                    }
+                    break;
+
+                case 6:
+                    if (!listConsultas.isEmpty()) {
+                        System.out.println("Lista de Consultas:");
+                        for (Consulta c : listConsultas) {
+                            System.out.println(c);
+                        }
+                    } else {
+                        System.out.println("Não há consultas agendadas.");
+                    }
+                    break;
+                case 7: 
+                    System.out.println("Lista de Pacientes:");
+                    for (Paciente p : listPacientes) {
+                        System.out.println(p);
+                    }
+                    break;
+                case 0:
+                    System.out.println("Encerrando o programa...");
+                    sc.close();
+                    return;
+
                 default:
-                    System.out.println("Opção inválida.");
+                    System.out.println("Opção inválida, tente novamente.");
+                    break;
             }
         }
-        
-        // inserir a manipulação das listas
-        
-        sc.close();
     }
 
-    //Pessoa paciente1 = new Pessoa(null, null, null, 0, null);
-    //paciente1.setNome("Joaquim França");
-    //paciente1.setDocumento("12197942199");
-
-    private static void adicionarPaciente(Scanner sc, List<Paciente> listPacientes) {
-        try {
-            System.out.println("Digite informações sobre o paciente:");
-            System.out.print("Nome: ");
-            String nome = sc.nextLine();
-            System.out.print("CPF: ");
-            long cpf = Long.parseLong(sc.nextLine());
-            System.out.print("RG: ");
-            long rg = Long.parseLong(sc.nextLine());
-            System.out.print("Sexo: ");
-            String sexo = sc.nextLine();
-            System.out.print("Data de nascimento: ");
-            String dataNasc = sc.nextLine();
-
-            listPacientes.add(new Paciente(nome, cpf, rg, sexo, dataNasc));
-
-            System.out.println("Paciente adicionado com sucesso!");
-        } catch (NumberFormatException e) {
-            System.out.println("Erro ao converter entrada para número. Certifique-se de inserir apenas números para CPF, RG, etc.");
-        }
+    private static Paciente cadastrarNovoPaciente(Scanner sc) {
+        System.out.println("Digite as seguintes informações do novo paciente:");
+        System.out.print("Nome: ");
+        String nome = sc.nextLine();
+        System.out.print("CPF: ");
+        Long cpf = sc.nextLong();
+        sc.nextLine();
+        System.out.print("RG: ");
+        Long rg = sc.nextLong();
+        sc.nextLine();
+        System.out.print("Sexo: ");
+        char sexo = sc.next().charAt(0);
+        sc.nextLine();
+        System.out.print("Data de Nascimento: ");
+        String dataNasc = sc.nextLine();
+        System.out.print("Telefone celular: ");
+        String celular = sc.nextLine();
+        return new Paciente(nome, cpf, rg, sexo, dataNasc, celular);
     }
 
-    private static void adicionarMedico(Scanner sc, List<Medico> listMedicos) {
-        try {
-            System.out.println("Digite informações sobre o médico:");
-            System.out.print("Nome: ");
-            String nome = sc.nextLine();
-            System.out.print("CPF: ");
-            long cpf = Long.parseLong(sc.nextLine());
-            System.out.print("RG: ");
-            long rg = Long.parseLong(sc.nextLine());
-            System.out.print("Sexo: ");
-            String sexo = sc.nextLine();
-            System.out.print("Data de nascimento: ");
-            String dataNasc = sc.nextLine();
-            System.out.print("CRM: ");
-            String crm = sc.nextLine();
+    private static Medico cadastrarNovoMedico(Scanner sc) {
+        System.out.println("Digite as seguintes informações do novo médico:");
+        System.out.print("Nome: ");
+        String nome = sc.nextLine();
+        System.out.print("CPF: ");
+        Long cpf = sc.nextLong();
+        sc.nextLine();
+        System.out.print("RG: ");
+        Long rg = sc.nextLong();
+        sc.nextLine();
+        System.out.print("Sexo: ");
+        char sexo = sc.next().charAt(0);
+        sc.nextLine();
+        System.out.print("Data de Nascimento: ");
+        String dataNasc = sc.nextLine();
+        System.out.print("CRM: ");
+        String crm = sc.nextLine();
+        return new Medico(nome, cpf, rg, sexo, dataNasc, crm);
+    }
 
-            listMedicos.add(new Medico(nome, cpf, rg, sexo, dataNasc, crm));
-
-            System.out.println("Médico adicionado com sucesso!");
-        } catch (NumberFormatException e) {
-            System.out.println("Erro ao converter entrada para número. Certifique-se de inserir apenas números para CPF, RG, etc.");
+    private static Consulta agendarNovaConsulta(Scanner sc, List<Paciente> listPacientes, List<Medico> listMedicos) {
+        System.out.println("Digite as seguintes informações da nova consulta:");
+        System.out.print("Nome do Paciente: ");
+        String pacienteNome = sc.nextLine();
+        System.out.print("Nome do Médico: ");
+        String medicoNome = sc.nextLine();
+        System.out.print("Data: ");
+        String data = sc.nextLine();
+        System.out.print("Horário: ");
+        String horario = sc.nextLine();
+        Paciente paciente = findPacienteByName(listPacientes, pacienteNome);
+        Medico medico = findMedicoByName(listMedicos, medicoNome);
+        if (paciente == null) {
+            System.out.println("Paciente não encontrado.");
         }
+        if (medico == null) {
+            System.out.println("Médico não encontrado.");
+        }
+        return new Consulta(paciente, medico, data, horario);
+    }
+
+    private static Paciente findPacienteByName(List<Paciente> listPacientes, String name) {
+        for (Paciente p : listPacientes) {
+            if (p.getNome().equalsIgnoreCase(name)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    private static Medico findMedicoByName(List<Medico> listMedicos, String name) {
+        for (Medico m : listMedicos) {
+            if (m.getNome().equalsIgnoreCase(name)) {
+                return m;
+            }
+        }
+        return null;
     }
 }

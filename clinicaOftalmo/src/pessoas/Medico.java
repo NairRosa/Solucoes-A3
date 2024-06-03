@@ -97,6 +97,35 @@ public class Medico extends Pessoa {
         }
     }
 
+	//Método para excluir registro de médico
+	public void excluirMedico() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Informe o nome do Médico a ser excluído:");
+		String medicoExcluir = sc.next();
+
+		Iterator<Medico> it = listMedicos.iterator();
+		while (it.hasNext()) {
+			Medico medico = it.next();
+			if (medico.getNome().equals(medicoExcluir)) {
+				it.remove();
+				System.out.println("Médico excluído com sucesso.");
+				sc.close(); // Fechar o Scanner
+				return;
+			}
+		}
+		System.out.println("Médico não encontrado.");
+		sc.close(); // Fechar o Scanner
+	
+	}
+
+	//Método para listar relação de médicos
+	public void listarMedico() {
+		System.out.println("Lista de Médicos:");
+		for (Medico medico : listMedicos) {
+			System.out.println(medico);
+		}
+	}
+
     // Métodos getter e setter para crm
 
     public String getCrm() {
@@ -107,30 +136,4 @@ public class Medico extends Pessoa {
         this.crm = crm;
     }
 
-    public void excluirMedico() {
-			Scanner sc = new Scanner(System.in);
-			System.out.println("Informe o nome do Médico a ser excluído:");
-			String medicoExcluir = sc.next();
-	
-			Iterator<Medico> it = listMedicos.iterator();
-			while (it.hasNext()) {
-				Medico medico = it.next();
-				if (medico.getNome().equals(medicoExcluir)) {
-					it.remove();
-					System.out.println("Médico excluído com sucesso.");
-					sc.close(); // Fechar o Scanner
-					return;
-				}
-			}
-			System.out.println("Médico não encontrada.");
-			sc.close(); // Fechar o Scanner
-		
-    }
-
-    public void listarMedico() {
-        System.out.println("Lista de Médicos:");
-        for (Medico medico : listMedicos) {
-            System.out.println(medico);
-        }
-    }
 }

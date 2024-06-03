@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
-//import pessoas.Medico;
-//import pessoas.Paciente;
 
 public class Consulta {
     private String pacienteNome;
@@ -158,8 +156,7 @@ public class Consulta {
 
     @Override
     public String toString() {
-        return "Consulta [pacienteNome=" + pacienteNome + ", medicoNome=" + medicoNome + ", data=" + data + ", horario="
-                + horario + "]";
+        return "[" + pacienteNome + ", " + medicoNome + ", " + data + ", " + horario + "]";
     }   
 }
 

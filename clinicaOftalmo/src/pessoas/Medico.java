@@ -23,110 +23,144 @@ public class Medico extends Pessoa {
         super(nome, cpf, rg, sexo, dataNasc);
         this.crm = crm;
     }
-
-    // Método para cadastrar um novo médico
-    
 	
-	     //MÉTODOS PERSONALIZADOS:
-	public void cadastrarMedico(Scanner sc2) {
+	// Método de cadastrar médico
+    public void cadastrarMedico(Scanner sc2) {
         try {
-            // Tentativa de coletar os dados do novo médico
             System.out.println("Informe os dados do novo médico:");
             System.out.print("Nome: ");
             String nome = sc.next();
+            sc.nextLine(); // Limpar o buffer
             System.out.print("CPF: ");
             String cpf = sc.next();
+            sc.nextLine(); // Limpar o buffer
             System.out.print("RG: ");
             String rg = sc.next();
+            sc.nextLine(); // Limpar o buffer
             System.out.print("Sexo: ");
             char sexo = sc.next().charAt(0);
+            sc.nextLine(); // Limpar o buffer
             System.out.print("Data de Nascimento: ");
             String dataNasc = sc.next();
+            sc.nextLine(); // Limpar o buffer
             System.out.print("CRM: ");
             String crm = sc.next();
+            sc.nextLine(); // Limpar o buffer
 
-            // Adiciona o médico à lista de médicos
             listMedicos.add(new Medico(nome, cpf, rg, sexo, dataNasc, crm)); 
 
             System.out.println("Médico cadastrado!");
         } catch (InputMismatchException e) {
-            // Se a entrada do usuário for inválida, exibe uma mensagem de erro
             System.out.println("Entrada inválida. Certifique-se de inserir o tipo correto de dados.");
             sc.nextLine(); // Limpa o buffer do scanner
         }
     }
-
-    // Método para editar os dados de um médico cadastrado
+	//Método de editar cadastro de médicos
     public void editarCadastroDeMedico() {
-        System.out.println("Informe o nome do médico:");
-        String procurarMedico = sc.next();
-        boolean encontrado = false;
-
-        for (Medico medico : listMedicos) {
-            if (medico.getNome().equalsIgnoreCase(procurarMedico)) {
-                encontrado = true;
-                while (true) {
-                    try {
-                        // Tentativa de atualizar os dados do médico
-                        System.out.println("Selecione a atualização:");
-                        System.out.println("1. Atualizar nome");
-                        System.out.println("2. Atualizar CPF");
-                        System.out.println("3. Atualizar RG");
-                        System.out.println("4. Atualizar sexo");
-                        System.out.println("5. Atualizar Data de Nascimento");
-                        System.out.println("6. Atualizar CRM");
-                        System.out.println("0. Encerrar operação");
-
-                        int selecao = sc.nextInt();
-
-                        switch (selecao) {
-                            // Casos de atualização dos dados
-                            // ...
-                        }
-                    } catch (InputMismatchException e) {
-                        // Se o usuário inserir uma opção inválida, exibe uma mensagem de erro
-                        System.out.println("Opção inválida. Insira um número.");
-                        sc.nextLine(); // Limpa o buffer do scanner
-                    }
-                }
-            }
-        }
-        if (!encontrado) {
-            // Se o médico não for encontrado, exibe uma mensagem
-            System.out.println("Médico não encontrado.");
-        }
+			System.out.println("Informe o nome do médico:");
+			String procurarMedico = sc.next();
+			boolean encontrado = false;
+	
+			for (int i = 0; i < listMedicos.size(); i++) {
+				if (listMedicos.get(i).getNome().equalsIgnoreCase(procurarMedico)) {
+					encontrado = true;
+					while (true) {
+						try {
+							// Tentativa de atualizar os dados do médico
+							System.out.println("Selecione a atualização:");
+							System.out.println("1. Atualizar nome");
+							System.out.println("2. Atualizar CPF");
+							System.out.println("3. Atualizar RG");
+							System.out.println("4. Atualizar sexo");
+							System.out.println("5. Atualizar Data de Nascimento");
+							System.out.println("6. Atualizar CRM");
+							System.out.println("0. Encerrar operação");
+	
+							int selecao = sc.nextInt();
+	
+							
+							switch (selecao) {
+								case 1:
+								System.out.println("Informe o novo dado cadastral");
+	  
+								System.out.print("Nome: ");
+								String nome = sc.next();
+								listMedicos.get(i).setNome(nome);
+								break;
+							case 2:
+								System.out.println("Informe o novo dado cadastral");
+								System.out.print("CPF: ");
+								String cpf = sc.next();
+								listMedicos.get(i).setCpf(cpf);
+								break;
+							case 3:
+								System.out.println("Informe o novo dado cadastral");
+								System.out.print("RG: ");
+								String rg = sc.next();
+								listMedicos.get(i).setRg(rg);
+								break;
+							case 4:
+								System.out.println("Informe o novo dado cadastral");
+								System.out.print("Sexo: ");
+								Character sexo = sc.next().charAt(0);
+								listMedicos.get(i).setSexo(sexo);
+								break;
+							case 5:
+								System.out.println("Informe o novo dado cadastral");
+								System.out.print("Data de Nascimento: ");
+								String dataNasc = sc.next();
+								listMedicos.get(i).setDataNasc(dataNasc);
+								break;
+							case 6:
+								System.out.println("Informe o novo dado cadastral");
+								System.out.print("Celular: ");
+								String crm = sc.next();
+								listMedicos.get(i).setCrm(crm);
+								break;
+							case 0:
+								System.out.println("Operação encerrada.");
+								return;
+	  
+							default:
+								break;
+							}
+						} catch (InputMismatchException e) {
+							// Se o usuário inserir uma opção inválida, exibe uma mensagem de erro
+							System.out.println("Opção inválida. Insira um número.");
+							sc.nextLine(); // Limpa o buffer do scanner
+						}
+					}
+				}
+			}
+			if (!encontrado) {
+				// Se o médico não for encontrado, exibe uma mensagem
+				System.out.println("Médico não encontrado.");
+			}
+		
     }
 
-	//Método para excluir registro de médico
-	public void excluirMedico() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Informe o nome do Médico a ser excluído:");
-		String medicoExcluir = sc.next();
+    public void excluirMedico() {
+        System.out.println("Informe o nome do Médico a ser excluído:");
+        String medicoExcluir = sc.next();
 
-		Iterator<Medico> it = listMedicos.iterator();
-		while (it.hasNext()) {
-			Medico medico = it.next();
-			if (medico.getNome().equals(medicoExcluir)) {
-				it.remove();
-				System.out.println("Médico excluído com sucesso.");
-				sc.close(); // Fechar o Scanner
-				return;
-			}
-		}
-		System.out.println("Médico não encontrado.");
-		sc.close(); // Fechar o Scanner
-	
-	}
+        Iterator<Medico> it = listMedicos.iterator();
+        while (it.hasNext()) {
+            Medico medico = it.next();
+            if (medico.getNome().equals(medicoExcluir)) {
+                it.remove();
+                System.out.println("Médico excluído com sucesso.");
+                return;
+            }
+        }
+        System.out.println("Médico não encontrado.");
+    }
 
-	//Método para listar relação de médicos
-	public void listarMedico() {
-		System.out.println("Lista de Médicos:");
-		for (Medico medico : listMedicos) {
-			System.out.println(medico);
-		}
-	}
-
-    // Métodos getter e setter para crm
+    public void listarMedico() {
+        System.out.println("Lista de Médicos:");
+        for (Medico medico : listMedicos) {
+            System.out.println(medico);
+        }
+    }
 
     public String getCrm() {
         return crm;
@@ -136,4 +170,8 @@ public class Medico extends Pessoa {
         this.crm = crm;
     }
 
+    @Override
+    public String toString() {
+        return "Nome: " + getNome() + ", CPF: " + getCpf() + ", RG: " + getRg() + ", Sexo: " + getSexo() + ", Data de Nascimento: " + getDataNasc() + ", CRM: " + crm;
+    }
 }

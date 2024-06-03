@@ -4,8 +4,6 @@ import pessoas.Paciente;
 import pessoas.Medico;
 import operacoes.Consulta;
 import java.util.Scanner;
-//import java.util.List;
-//import java.util.ArrayList;
 
 public class Principal {
 

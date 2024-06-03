@@ -8,11 +8,12 @@ public abstract class Pessoa {
     protected String dataNasc;
         
     
-        //Construtor Vazio
+    //Construtor Vazio
 	public Pessoa() {
 		super();
-	}
-        //Construtor
+	}  
+	
+	//Construtor
 	public Pessoa(String nome, String cpf, String rg, Character sexo, String dataNasc) {
 		super();
 		this.nome = nome;
@@ -22,9 +23,7 @@ public abstract class Pessoa {
 		this.dataNasc = dataNasc;
 	}
         
-        
-        
-        //Métodos Get e Set
+    //Métodos Get e Set
 	public String getNome() {
 		return nome;
 	}
@@ -67,13 +66,11 @@ public abstract class Pessoa {
         
         
         
-        //To String
+    //To String
 	@Override
 	public String toString() {
-		return "[" + nome + ", " + cpf + ", " + rg + ", " + sexo + ", " + dataNasc  + ", " ;
+		return "[" + nome + ", " + cpf + ", " + rg + ", " + sexo + ", " + dataNasc  + "]" ;
 	}
-	
-
 	
 	
 }

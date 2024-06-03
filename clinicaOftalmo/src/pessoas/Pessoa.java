@@ -1,77 +1,79 @@
 package pessoas;
 
-
-public class Pessoa {
-
-    private String nome;
-	private Long cpf;
-	private Long rg;
-	private char sexo;
-	private String dataNasc;
-
-	
-	public Pessoa(String nome, Long cpf, Long rg, char sexo, String dataNasc) {
+public abstract class Pessoa {
+    protected String nome;
+    protected String cpf;
+    protected String rg;
+    protected Character sexo;  //ver se é tipado assim mesmo, ou seria Character
+    protected String dataNasc;
+        
+    
+        //Construtor Vazio
+	public Pessoa() {
+		super();
+	}
+        //Construtor
+	public Pessoa(String nome, String cpf, String rg, Character sexo, String dataNasc) {
+		super();
 		this.nome = nome;
 		this.cpf = cpf;
 		this.rg = rg;
 		this.sexo = sexo;
 		this.dataNasc = dataNasc;
 	}
-
-
+        
+        
+        
+        //Métodos Get e Set
 	public String getNome() {
 		return nome;
 	}
-
 
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
-
-	public Long getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-
-	public void setCpf(Long cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
-
-	public Long getRg() {
-		return rg;
-	}
-
-
-	public void setRg(Long rg) {
-		this.rg = rg;
-	}
-
-
-	public char getSexo() {
+	public Character getSexo() {
 		return sexo;
 	}
 
-
-	public void setSexo(char sexo) {
+	public void setSexo(Character sexo) {
 		this.sexo = sexo;
 	}
 
+	public String getRg() {
+		return rg;
+	}
+
+	public void setRg(String rg) {
+		this.rg = rg;
+	}
 
 	public String getDataNasc() {
 		return dataNasc;
 	}
 
-
 	public void setDataNasc(String dataNasc) {
 		this.dataNasc = dataNasc;
 	}
-
-	//To String
+        
+        
+        
+        //To String
 	@Override
 	public String toString() {
-		return "Pessoa{" + "nome=" + nome + ", cpf=" + cpf + ", sexo=" + sexo + ", rg=" + rg+ ", dataNasc=" + dataNasc + '}';
+		return "[" + nome + ", " + cpf + ", " + rg + ", " + sexo + ", " + dataNasc  + ", " ;
 	}
+	
+
+	
 	
 }

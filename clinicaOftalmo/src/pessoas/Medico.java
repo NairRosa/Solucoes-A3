@@ -5,6 +5,8 @@ import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 
+//import operacoes.Consulta;
+
 public class Medico extends Pessoa {
 
 	private String crm;
@@ -126,7 +128,9 @@ public class Medico extends Pessoa {
     }
 
     public void listarMedico() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listarMedico'");
+        System.out.println("Lista de Médicos:");
+        for (Medico medico : listMedicos) {
+            System.out.println(medico);
+        }
     }
 }

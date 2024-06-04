@@ -78,7 +78,7 @@ public class Principal {
                        break;
                    
                    case 8: // Ver relação de médicos
-                       novoMedico.listarMedico();
+                       novoMedico.relacaoMedicos();
                        break;
                    
                    case 9: // Cadastrar nova consulta

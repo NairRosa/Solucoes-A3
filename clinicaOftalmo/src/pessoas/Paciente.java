@@ -6,7 +6,8 @@ import java.lang.String;
 
 public class Paciente extends Pessoa {
 
-	private String celular;    
+	private String celular;
+    private String email;
 
 	//Classe Scanner	
     Scanner sc = new Scanner (System.in);
@@ -18,9 +19,10 @@ public class Paciente extends Pessoa {
         
         
     //Construtor
-	public Paciente(String nome, String cpf, String rg, Character sexo, String dataNasc, String celular) {
+	public Paciente(String nome, String cpf, String rg, Character sexo, String dataNasc, String celular, String email) {
 		super(nome, cpf, rg, sexo, dataNasc);
 		this.celular = celular;
+		this.email = email;
 	}
         
         
@@ -32,28 +34,32 @@ public class Paciente extends Pessoa {
     public void cadastrarPaciente(Scanner sc) {
         try {
             System.out.println("Informe os dados do novo paciente: ");
+            sc.nextLine();
             System.out.print("Nome: ");
-            String nome = sc.next();
+            String nome = sc.nextLine();
             this.nome = nome;
             System.out.print("CPF: ");
-            String cpf = sc.next();
+            String cpf = sc.nextLine();
             this.cpf = cpf;
             System.out.print("RG: ");
-            String rg = sc.next();
+            String rg = sc.nextLine();
             this.rg = rg;
             System.out.print("Sexo: ");
-            Character sexo = sc.next().charAt(0);
+            Character sexo = sc.nextLine().charAt(0);
             this.sexo = sexo;
             System.out.print("Data de Nascimento: ");
-            String dataNasc = sc.next();
+            String dataNasc = sc.nextLine();
             this.dataNasc = dataNasc;
             System.out.print("Celular: ");
-            String celular = sc.next();
+            String celular = sc.nextLine();
             this.celular = celular;		
+            System.out.print("Email: ");
+            String email = sc.nextLine();
+            this.email = email;	
 
                   
                     
-            listPacientes.add(new Paciente(this.nome,this.cpf,this.rg,this.sexo,this.dataNasc,this.celular)); 
+            listPacientes.add(new Paciente(this.nome,this.cpf,this.rg,this.sexo,this.dataNasc,this.celular,this.email)); 
 
 
             System.out.println("Paciente cadastrado: ");
@@ -77,13 +83,14 @@ public class Paciente extends Pessoa {
                 count++;
                 while(true){
                     System.out.println("Selecione a atualização: "); 
-                    System.out.println("Atualizar nome:[1]");
-                    System.out.println("Atualizar cpf:[2]");
-                    System.out.println("Atualizar rg:[3]");
-                    System.out.println("Atualizar sexo:[4]");
-                    System.out.println("Atualizar Data de Nascimento:[5]");
-                    System.out.println("Atualizar celular:[6]");
-                    System.out.println("Encerrar operação:[0]");
+                    System.out.println("[1] Atualizar nome.");
+                    System.out.println("[2] Atualizar CPF.");
+                    System.out.println("[3] Atualizar RG.");
+                    System.out.println("[4] Atualizar sexo.");
+                    System.out.println("[5] Atualizar Data de Nascimento.");
+                    System.out.println("[6] Atualizar celular.");
+                    System.out.println("[7] Atualizar email.");
+                    System.out.println("[0] Encerrar operação.");
 
                     int selecao=sc.nextInt();
 
@@ -125,6 +132,12 @@ public class Paciente extends Pessoa {
                                 String celular = sc.next();
                                 listPacientes.get(i).setCelular(celular);
                                 break;
+                            case 7:
+                                System.out.println("Informe o novo dado cadastral");
+                                System.out.print("Email: ");
+                                String email = sc.next();
+                                listPacientes.get(i).setEmail(email);
+                                break;
                             case 0:
                                 System.out.println("Operação encerrada.");
                                 
@@ -134,7 +147,7 @@ public class Paciente extends Pessoa {
                                 break;
 
                         }
-                            System.out.println("Dados do paciente atualizados com sucesso!");
+                            System.out.println("Paciente atualizado com sucesso!");
                         }
 
             
@@ -163,8 +176,8 @@ public class Paciente extends Pessoa {
        
         System.out.println("Escolha uma das opções:");
         System.out.println();
-        System.out.println("Buscar Paciente[1].");
-        System.out.println("Imprimir relação de pacientes[2].");
+        System.out.println("[1] Buscar Paciente.");
+        System.out.println("[2] Imprimir relação de pacientes.");
         System.out.println();
         System.out.print("Selecione: ");
         opcao =sc.nextInt();
@@ -213,13 +226,13 @@ public class Paciente extends Pessoa {
              
         System.out.println("Cadastramento automático para teste: ");
         System.out.println("-----------------------------------------------------------------");
-        listPacientes.add(new Paciente("Amos", "11111111111", "1111111111", 'M', "03/01/2000", "999999999"));
-        listPacientes.add(new Paciente("Juliana", "22222222222", "222222", 'M', "28/12/1992", "999999999"));
-        listPacientes.add(new Paciente("Miguel", "33333333333", "222222", 'M', "03/01/2000", "999999999"));
-        listPacientes.add(new Paciente("Nair", "44444444444", "222222", 'M', "03/01/2000", "999999999"));
-        listPacientes.add(new Paciente("Yule", "55555555555", "222222", 'M', "03/01/2000", "999999999"));
-        listPacientes.add(new Paciente("Joao", "66666666666", "222222", 'M', "03/01/2000", "999999999"));
-        listPacientes.add(new Paciente("Maria", "777777777777", "222222", 'M', "03/01/2000", "999999999"));
+        listPacientes.add(new Paciente("Amos", "11111111111", "1111111111", 'M', "03/01/2000", "999999999", "email@email"));
+        listPacientes.add(new Paciente("Juliana", "22222222222", "2222222222", 'F', "28/12/1992", "999999999", "email@email"));
+        listPacientes.add(new Paciente("Miguel", "33333333333", "3333333333", 'M', "03/01/2000", "999999999", "email@email"));
+        listPacientes.add(new Paciente("Nair", "44444444444", "4444444444", 'F', "03/01/2000", "999999999", "email@email"));
+        listPacientes.add(new Paciente("Yule", "55555555555", "5555555555", 'M', "03/01/2000", "999999999", "email@email"));
+        listPacientes.add(new Paciente("Joao", "66666666666", "6666666666", 'M', "03/01/2000", "999999999", "email@email"));
+        listPacientes.add(new Paciente("Maria", "777777777777", "77777777777", 'F', "03/01/2000", "999999999", "email@email"));
 
         for(Paciente p: listPacientes) {
             System.out.println(p);
@@ -238,11 +251,19 @@ public class Paciente extends Pessoa {
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
-    
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
     //To String
 	@Override
 	public String toString() {
-		return "[" + nome + ", " + cpf + ", " + rg + ", " + sexo + ", " + dataNasc  + ", " + celular + "]" ;
+		return "[" + nome + ", " + cpf + ", " + celular + "]" ;
 	}
     
 }

@@ -55,15 +55,9 @@ public class Medico extends Pessoa {
 			}
             this.cpf = cpf;
 
-            /*System.out.print("RG: ");
+            System.out.print("RG: ");
             String rg = sc.nextLine();
-
-			System.out.println("RG inserido antes da validação: " + rg); // Imprime o RG antes da validação
-			if(!validarRG(rg)) {
-				throw new IllegalArgumentException("RG inválido.");
-			}
             this.rg = rg;
-			System.out.println("RG inserido depois da validação: " + rg); // Imprime o RG depois da validação*/
 
             System.out.print("SEXO: ");
             Character sexo = sc.nextLine().charAt(0);
@@ -103,7 +97,7 @@ public class Medico extends Pessoa {
 			System.out.println(e.getMessage());
 			sc.nextLine();
 		}
-    }
+    } 
 
 	public boolean validarCPF(String cpf) {
 		// Remove caracteres especiais do CPF
@@ -150,43 +144,6 @@ public class Medico extends Pessoa {
 	
 		return true;
 	}
-
-
-	public boolean validarRG(String rg) {
-		// Remover caracteres especiais do RG
-		rg = rg.replaceAll("[^0-9]", "");
-		
-		// Verificar se o RG possui entre 9 e 10 dígitos
-		if (rg.length() != 9 && rg.length() != 10) {
-			return false;
-		}
-		
-		// Extrair os dígitos e o dígito verificador
-		String digitos = rg.substring(0, rg.length() - 1);
-		char digitoVerificador = rg.charAt(rg.length() - 1);
-		
-		// Calcular o dígito verificador esperado
-		int soma = 0;
-		int peso = 2; // O peso começa em 2 para RGs com 9 dígitos
-		if (rg.length() == 10) {
-			peso = 3; // Se o RG tiver 10 dígitos, o peso começa em 3
-		}
-		for (int i = digitos.length() - 1; i >= 0; i--) {
-			soma += (digitos.charAt(i) - '0') * peso;
-			peso++;
-		}
-		int resto = soma % 11;
-		char esperado;
-		if (resto == 10) {
-			esperado = 'X';
-		} else {
-			esperado = (char) (resto + '0');
-		}
-		
-		// Verificar se o dígito verificador é válido
-		return esperado == digitoVerificador;
-	}
-
 
 	public boolean validarDataNascimento(String dataNasc) {
 		// Definir o formato esperado da data

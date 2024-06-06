@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.lang.String;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,19 +60,11 @@ public class Paciente extends Pessoa {
             if(!validarCPF(cpf)) {
 				throw new IllegalArgumentException("CPF inválido.");
 			}
-
             this.cpf = cpf;
 
-            /*System.out.print("RG: ");
+            System.out.print("RG: ");
             String rg = sc.nextLine();
-
-			System.out.println("RG inserido antes da validação: " + rg); // Imprime o RG antes da validação
-			if(!validarRG(rg)) {
-				throw new IllegalArgumentException("RG inválido.");
-			}
             this.rg = rg;
-			System.out.println("RG inserido depois da validação: " + rg); // Imprime o RG depois da validação*/
-
 
             System.out.print("SEXO: ");
             Character sexo = sc.nextLine().charAt(0);
@@ -88,9 +82,19 @@ public class Paciente extends Pessoa {
 
             System.out.print("CELULAR: ");
             String celular = sc.nextLine();
-            this.celular = celular;		
+            if (validarNumeroCelular(celular)) {
+                System.out.println(celular + " é um número de celular válido.");
+            } else {
+                throw new IllegalArgumentException(celular + " não é um número de celular válido.");
+            }
+            this.celular = celular;
+
             System.out.print("EMAIL: ");
             String email = sc.nextLine();
+            if(!validarEmail(email)) {
+				throw new IllegalArgumentException(email + " - Email invalido");
+			}
+
             this.email = email;		
                    
             listPacientes.add(new Paciente(this.nome,this.cpf,this.rg,this.sexo,this.dataNasc,this.celular,this.email)); 
@@ -184,7 +188,7 @@ public class Paciente extends Pessoa {
 			esperado = (char) (resto + '0');
 		}
 		
-		// Verificar se o dígito verificador é válido
+		// Verificar se   o dígito verificador é válido
 		return esperado == digitoVerificador;
 	}
 
@@ -207,11 +211,25 @@ public class Paciente extends Pessoa {
 		}
 	}
 
+    // validando email
+    public boolean validarEmail(String email) {
+        // Expressão regular simples para verificar o formato do e-mail
+        String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        return email.matches(regex);
+    }
+
+    private boolean validarNumeroCelular(String celular) {
+        Pattern pattern = Pattern.compile("\\d{9,11}"); // Celular deve ter de 9 a 11 dígitos
+        Matcher matcher = pattern.matcher(celular);
+        return matcher.matches();
+    }
+
+
         
     public void editarPaciente(){
-		boolean encontrado = false;           
+		boolean encontrado = false; 
         System.out.print("Informe o nome do paciente: ");
-        String procurarPaciente =sc.next();
+        String procurarPaciente =sc.nextLine();
         
 
               

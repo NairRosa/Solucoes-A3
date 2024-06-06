@@ -1,6 +1,9 @@
 package operacoes;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -37,14 +40,22 @@ public class Consulta {
     public void agendarConsulta(Scanner sc) {
         System.out.println("Informe os dados da nova consulta: ");
         System.out.println();
+        sc.nextLine();
         System.out.print("MEDICO: "); 
-        String medico = sc.next();
+        String medico = sc.nextLine();
         System.out.print("PACIENTE: ");
-        String paciente = sc.next();
+        String paciente = sc.nextLine();
         System.out.print("DATA: ");
-        String data = sc.next();
+        String dataConsulta = sc.nextLine();
+        if(!validarData(dataConsulta)) {
+            throw new IllegalArgumentException("Data inválida. Insira no formato dd/mm/aaaa.");
+        }
+
         System.out.print("HORARIO: ");
-        String horario = sc.next();
+        String horario = sc.nextLine();
+        if(!validarHorario(horario)) {
+            throw new IllegalArgumentException("Horário inválido. Insira no formato HH:mm.");
+        }
         id++;
         
         listConsultas.add(new Consulta(paciente, medico, data, horario, id));   
@@ -53,6 +64,31 @@ public class Consulta {
         System.out.println();
     }
         
+
+    public boolean validarData(String dataConsulta) {
+		// Definir o formato esperado da data
+		SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+		formatoData.setLenient(false); // Desativar modo tolerante
+
+		try {
+			// Tentar fazer o parsing da data
+			@SuppressWarnings("unused")
+			Date data = formatoData.parse(dataConsulta);
+			
+			// Verificar se a data é válida (evita datas como 30 de fevereiro, etc.)
+			return true;
+		} catch (ParseException e) {
+			// A data não está no formato esperado
+			return false;
+		}
+	}
+
+    public boolean validarHorario(String horario) {
+        // Expressão regular para validar o formato de hora no formato "HH:mm"
+        String regex = "^([01]?[0-9]|2[0-3]):[0-5][0-9]$";
+        return horario.matches(regex);
+    }
+
     public void editarConsulta() { //-------------REVER!
         Scanner sc = new Scanner(System.in);
         System.out.println("Informe o ID da consulta: ");

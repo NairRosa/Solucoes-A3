@@ -1,3 +1,14 @@
+/*
+ * Programação de Soluções Computacionais - A3
+ * Equipe:
+ * Amós Medeiros
+ * Juliana Ferraz
+ * Miguel Souza
+ * Nair Rosa
+ * Yule Hohenfeld 
+ * 
+ */
+
 package pessoas;
 
 import java.util.ArrayList;
@@ -12,10 +23,11 @@ import java.text.SimpleDateFormat;
 
 public class Paciente extends Pessoa {
 
-	private String celular;
-    private String email;
-
-	public ArrayList<Paciente> listPacientes = new ArrayList<>();
+	private String celular;   
+	private String email;
+	
+  
+    public ArrayList<Paciente> listPacientes = new ArrayList<>();
 	
     Scanner sc = new Scanner (System.in);
         
@@ -34,13 +46,13 @@ public class Paciente extends Pessoa {
          
     //Objetos pre-cadastrados.
     public void pacientesPreCadastrados(){            
-        listPacientes.add(new Paciente("Amos Medeiros", "11111111111", "1111111111", 'M', "03/01/2000", "999999999", "email@email"));
-        listPacientes.add(new Paciente("Juliana Ferraz", "22222222222", "2222222222", 'F', "28/12/1992", "999999999", "email@email"));
-        listPacientes.add(new Paciente("Miguel Reis", "33333333333", "3333333333", 'M', "03/01/2000", "999999999", "email@email"));
-        listPacientes.add(new Paciente("Nair Rosa", "44444444444", "4444444444", 'F', "03/01/2000", "999999999", "email@email"));
-        listPacientes.add(new Paciente("Yule Lima", "55555555555", "5555555555", 'M', "03/01/2000", "999999999", "email@email"));
-        listPacientes.add(new Paciente("Joao Silva", "66666666666", "6666666666", 'M', "03/01/2000", "999999999", "email@email"));
-        listPacientes.add(new Paciente("Maria Souza", "777777777777", "77777777777", 'F', "03/01/2000", "999999999", "email@email"));
+        listPacientes.add(new Paciente("Amos Medeiros", "11111111111", "1111111111", 'M', "03/01/2000", "71999999999", "email@email"));
+        listPacientes.add(new Paciente("Juliana Ferraz", "22222222222", "2222222222", 'F', "28/12/1992", "71999999999", "email@email"));
+        listPacientes.add(new Paciente("Miguel Reis", "33333333333", "3333333333", 'M', "03/01/2000", "71999999999", "email@email"));
+        listPacientes.add(new Paciente("Nair Rosa", "44444444444", "4444444444", 'F', "03/01/2000", "71999999999", "email@email"));
+        listPacientes.add(new Paciente("Yule Lima", "55555555555", "5555555555", 'M', "03/01/2000", "71999999999", "email@email"));
+        listPacientes.add(new Paciente("Joao Silva", "66666666666", "6666666666", 'M', "03/01/2000", "71999999999", "email@email"));
+        listPacientes.add(new Paciente("Maria Souza", "777777777777", "77777777777", 'F', "03/01/2000", "71999999999", "email@email"));
     } 
     
     //REVER	- metodo personalizado para cadastrar novo paciente
@@ -50,34 +62,39 @@ public class Paciente extends Pessoa {
             sc.nextLine();
             System.out.print("NOME: ");
             String nome = sc.nextLine();
+            this.nome = nome;
+            
             if(nome.isEmpty()) {
-				throw new IllegalArgumentException("O nome não pode estar vazio.");
+            	System.out.println("O NOME não pode estar vazio.");
+            	return;
 			}
             this.nome = nome;
 
             System.out.print("CPF: ");
             String cpf = sc.nextLine();
             if(!validarCPF(cpf)) {
-				throw new IllegalArgumentException("CPF inválido.");
+            	System.out.println("CPF inválido.");
+            	return;
 			}
-            this.cpf = cpf;
-
+            
             System.out.print("RG: ");
             String rg = sc.nextLine();
             this.rg = rg;
-
-            System.out.print("SEXO: ");
+            
+            System.out.print("SEXO(M/F): ");
             Character sexo = sc.nextLine().charAt(0);
             if(sexo != 'M' && sexo != 'F') {
-				throw new IllegalArgumentException("Sexo inválido. Insira M para masculino ou F para feminino.");
-			}
+            	System.out.println("Sexo inválido! Insira M para masculino ou F para feminino.");
+            	return;
+            }
             this.sexo = sexo;
-
-            System.out.print("DATA DE NASCIMENTO: ");
+            
+            System.out.print("DATA DE NASCIMENTO(dd/mm/aaaa): ");
             String dataNasc = sc.nextLine();
             if(!validarDataNascimento(dataNasc)) {
-				throw new IllegalArgumentException("Data de nascimento inválida. Insira no formato dd/mm/aaaa.");
-			}
+            	System.out.println("Data de nascimento inválida. Insira no formato dd/mm/aaaa.");
+            	return;
+            }
             this.dataNasc = dataNasc;
 
             System.out.print("CELULAR: ");
@@ -85,14 +102,16 @@ public class Paciente extends Pessoa {
             if (validarNumeroCelular(celular)) {
                 System.out.println(celular + " é um número de celular válido.");
             } else {
-                throw new IllegalArgumentException(celular + " não é um número de celular válido.");
+            	System.out.println(celular + " não é um número de celular válido.");
+            	return;
             }
             this.celular = celular;
 
             System.out.print("EMAIL: ");
             String email = sc.nextLine();
             if(!validarEmail(email)) {
-				throw new IllegalArgumentException(email + " - Email invalido");
+            	System.out.println("Email invalido: " + email);
+            	return;
 			}
 
             this.email = email;		
@@ -108,8 +127,178 @@ public class Paciente extends Pessoa {
             System.out.println("ERRO: Entrada invalida.");
         }              
     }   
+        
+    public void editarPaciente(){
+		boolean encontrado = false;           
+        System.out.print("Informe o nome do paciente: ");
+        String procurarPaciente =sc.next();
+        
 
+              
+        for (int i = 0; i < listPacientes.size(); i++) {
+            if (listPacientes.get(i).getNome().equals(procurarPaciente)) {  
 
+            	encontrado = true;
+
+				while(true){
+                    System.out.println();
+                    System.out.println("*** ATUALIZAR PACIENTE ***"); 
+                    System.out.println(); 
+                    System.out.println("[1] Atualizar NOME.");
+                    System.out.println("[2] Atualizar CPF.");
+                    System.out.println("[3] Atualizar RG.");
+                    System.out.println("[4] Atualizar SEXO.");
+                    System.out.println("[5] Atualizar DATA NASCIMENTO.");
+                    System.out.println("[6] Atualizar CELULAR.");
+                    System.out.println("[7] Atualizar EMAIL.");
+                    System.out.println();                     
+                    System.out.println("[0] Voltar para o MENU PRINCIPAL.");
+                    System.out.println(); 
+
+                    System.out.print("Informe a opcao desejada:");                     
+                    int selecao=sc.nextInt();
+                    System.out.println(); 
+                    
+                    switch (selecao) {
+
+                    	case 1:
+                            System.out.print("Informe o novo NOME:");
+                            String nome = sc.next();
+                            listPacientes.get(i).setNome(nome);
+                            break;
+                    	case 2:
+                            System.out.print("Informe o novo CPF:");
+                            String cpf = sc.next();
+                            listPacientes.get(i).setCpf(cpf);
+                            break;
+                        case 3:
+                            System.out.print("Informe o novo RG:");
+                            String rg = sc.next();
+                            listPacientes.get(i).setRg(rg);
+                            break;
+                        case 4:
+                            System.out.print("Informe o novo SEXO(M/F):");
+                            Character sexo = sc.next().charAt(0);
+                            listPacientes.get(i).setSexo(sexo);
+                            break;
+                        case 5:
+                            System.out.print("Informe a nova DATA DE NASCIMENTO(dd/mm/aaaa):");
+                            String dataNasc = sc.next();
+                            listPacientes.get(i).setDataNasc(dataNasc);
+                            break;
+                        case 6:
+                            System.out.print("Informe o novo CELULAR:");
+                            String celular = sc.next();
+                            listPacientes.get(i).setCelular(celular);
+                            break;
+                        case 7:
+                            System.out.print("Informe o novo EMAIL:");
+                            String email = sc.next();
+                            listPacientes.get(i).setEmail(email);
+                        	break;
+                        case 0:                              
+                        	return;
+
+                        default:
+                        	System.out.println("Opcao invalida, tente novamente.");
+                            break;
+
+                    }
+                            System.out.println("Paciente atualizado com sucesso!");
+                            System.out.println();
+				}
+
+            
+            } 
+            else if(!encontrado) {
+            	continue;
+            }
+            
+            System.out.println("Paciente nao encontrado.");
+            System.out.println();                                     
+        }  
+    }
+            
+    public void excluirPaciente(){
+        System.out.print("Informe o CPF do Paciente a ser excluido:"); 
+        String excluirPaciente=sc.next();
+
+        for (int i = 0; i < listPacientes.size(); i++) {
+            if (listPacientes.get(i).getCpf().equals(excluirPaciente)) {
+                listPacientes.remove(i);
+            }
+        }
+        System.out.println("Paciente excluido com sucesso."); 
+        System.out.println();
+    }   
+    
+    // Método para buscar paciente espefífico ou listar relação de pacientes
+    public void relacaoPacientes() {
+        int opcao;
+       
+        System.out.println("** LISTA PACIENTES ***");
+        System.out.println();
+        System.out.println("[1] Buscar Paciente por NOME.");
+        System.out.println("[2] Relação de pacientes cadastrados.");
+        System.out.println();       
+        System.out.println("[0] Voltar para o MENU PRINCIPAL.");
+        System.out.println();
+        System.out.print("Informe a opcao desejada: ");
+        opcao =sc.nextInt();
+        System.out.println();
+        
+        if (listPacientes.isEmpty()) {
+            System.out.println("Nao ha pacientes cadastrados.");
+            return;
+        } else {
+            switch(opcao) {
+                
+            	case 1:
+            		sc.nextLine();
+            		System.out.print("Insira o NOME de um Paciente: ");                
+            		String buscar = sc.nextLine();
+                
+            		boolean encontrado = false;
+                
+            		for (Paciente p: listPacientes){
+            			if (p.getNome().equalsIgnoreCase(buscar)) {
+                      
+            				encontrado = true;
+            				
+            				System.out.println();
+            				System.out.print("Paciente encontrado:");
+            				System.out.println(p); 
+            				break;
+            			}                   
+            		}
+            		
+            		if (!encontrado) {
+            			System.out.println();
+            			System.out.println("Paciente nao encontrado!");
+            		}
+            		break;
+            		
+            	case 2: 
+            		System.out.println("---------- RELACAO DE PACIENTES CADASTRADOS ----------");
+            		System.out.println();
+                
+            		for (int i = 0; i < listPacientes.size(); i++) {
+            			System.out.println(listPacientes.get(i));		
+            			System.out.println();
+            		}
+            		System.out.println("-----------------------------------------------------");
+            		break;
+            		
+                case 0:                              
+                	return;
+            		
+            	default: //caso escolham uma opcao inexistente
+            		System.out.println("Opcao invalida, tente novamente.");
+            		break;
+            }
+        }    
+    }
+    
     public boolean validarCPF(String cpf) {
 		// Remove caracteres especiais do CPF
 		cpf = cpf.replaceAll("[^0-9]", "");
@@ -188,7 +377,7 @@ public class Paciente extends Pessoa {
 			esperado = (char) (resto + '0');
 		}
 		
-		// Verificar se   o dígito verificador é válido
+		// Verificar se o dígito verificador é válido
 		return esperado == digitoVerificador;
 	}
 
@@ -211,7 +400,7 @@ public class Paciente extends Pessoa {
 		}
 	}
 
-    // validando email
+    // validar email
     public boolean validarEmail(String email) {
         // Expressão regular simples para verificar o formato do e-mail
         String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
@@ -223,169 +412,7 @@ public class Paciente extends Pessoa {
         Matcher matcher = pattern.matcher(celular);
         return matcher.matches();
     }
-
-
-        
-    public void editarPaciente(){
-		boolean encontrado = false; 
-        System.out.print("Informe o nome do paciente: ");
-        String procurarPaciente =sc.nextLine();
-        
-
-              
-        for (int i = 0; i < listPacientes.size(); i++) {
-            if (listPacientes.get(i).getNome().equals(procurarPaciente)) {  
-
-            	encontrado = true;
-
-				while(true){
-                    System.out.println();
-                    System.out.println("*** ATUALIZAR PACIENTE ***"); 
-                    System.out.println(); 
-                    System.out.println("[1] Atualizar NOME.");
-                    System.out.println("[2] Atualizar CPF.");
-                    System.out.println("[3] Atualizar RG.");
-                    System.out.println("[4] Atualizar SEXO.");
-                    System.out.println("[5] Atualizar DATA NASCIMENTO.");
-                    System.out.println("[6] Atualizar CELULAR.");
-                    System.out.println("[7] Atualizar EMAIL.");
-                    System.out.println();                     
-                    System.out.println("[0] Voltra para o MENU PRINCIPAL.");
-                    System.out.println(); 
-
-                    System.out.print("Informe a opcao desejada:");                     
-                    int selecao = sc.nextInt();
-                    System.out.println(); 
-                    
-                    switch (selecao) {
-
-                    	case 1:
-                            System.out.print("Informe o novo NOME:");
-                            sc.nextLine();
-                            String nome = sc.nextLine();
-                            listPacientes.get(i).setNome(nome);
-                            break;
-                    	case 2:
-                            System.out.print("Informe o novo CPF:");
-                            String cpf = sc.nextLine();
-                            listPacientes.get(i).setCpf(cpf);
-                            break;
-                        case 3:
-                            System.out.print("Informe o novo RG:");
-                            String rg = sc.nextLine();
-                            listPacientes.get(i).setRg(rg);
-                            break;
-                        case 4:
-                            System.out.print("Informe o novo SEXO:");
-                            Character sexo = sc.next().charAt(0);
-                            listPacientes.get(i).setSexo(sexo);
-                            break;
-                        case 5:
-                            System.out.print("Informe a nova DATA DE NASCIMENTO:");
-                            String dataNasc = sc.nextLine();
-                            listPacientes.get(i).setDataNasc(dataNasc);
-                            break;
-                        case 6:
-                            System.out.print("Informe o novo CELULAR:");
-                            String celular = sc.nextLine();
-                            listPacientes.get(i).setCelular(celular);
-                            break;
-                        case 7:
-                            System.out.print("Informe o novo EMAIL:");
-                            String email = sc.next();
-                            listPacientes.get(i).setEmail(email);
-                        	break;
-                        case 0:                              
-                        	return;
-
-                        default:
-                        	System.out.println("Opcao invalida, tente novamente.");
-                            break;
-
-                    }
-                            System.out.println("Paciente atualizado com sucesso!");
-                            System.out.println();
-				}
-
-            
-            } 
-            else if(!encontrado) {
-            	continue;
-            }
-            
-            System.out.println("Paciente nao encontrado.");
-            System.out.println();                                     
-        }  
-    }
-            
-    public void excluirPaciente(){
-        System.out.print("Informe o CPF do Paciente a ser excluido:"); 
-        sc.nextLine();
-        String excluirPaciente = sc.nextLine();
-
-        for (int i = 0; i < listPacientes.size(); i++) {
-            if (listPacientes.get(i).getCpf().equals(excluirPaciente)) {
-                listPacientes.remove(i);
-            }
-        }
-        System.out.println("Paciente excluido com sucesso."); 
-        System.out.println();
-    }   
     
-    // Método para buscar específicamente ou listar relação de pacientes
-    public void relacaoPacientes() {
-        int opcao;
-       
-        System.out.println("** LISTAR PACIENTE ***");
-        System.out.println();
-        System.out.println("[1] Buscar Paciente por NOME.");
-        System.out.println("[2] Imprimir relação de pacientes cadastrados.");
-        System.out.println();
-        System.out.print("Informe a opcao desejada: ");
-        opcao =sc.nextInt();
-        System.out.println();
-        
-        if (listPacientes.isEmpty()) {
-            System.out.println("Nao ha pacientes cadastrados.");
-            return;
-        } else {
-            switch(opcao) {
-                
-            case 1:
-                System.out.print("Insira o NOME de um Paciente: ");
-                sc.nextLine();
-                String buscar = sc.nextLine();
-                boolean encontrado = false;
-                
-                for (Paciente p: listPacientes){
-                    if (p.getNome().equalsIgnoreCase(buscar)) {
-                        encontrado = true;
-                        System.out.println("Paciente encontrado:");
-                        System.out.println(p);
-                        
-                    }
-                }
-                if (!encontrado) {
-                    System.out.println("Paciente nao encontrado.");
-                }
-                break;
-            case 2: 
-                System.out.println("---------- RELACAO DE PACIENTES CADASTRADOS ----------");
-                System.out.println();
-                
-                for (int i = 0; i < listPacientes.size(); i++) {
-                    System.out.println(listPacientes.get(i));		
-                    System.out.println();
-                }
-                System.out.println("-----------------------------------------------------");
-                break;
-            default: //caso escolham uma opcao inexistente
-            System.out.println("Opção inválida, tente novamente.");
-                break;
-            }
-        }    
-    }
-        
     //Métodos Get e Set
 	public String getCelular() {
 		return celular;

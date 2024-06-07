@@ -32,9 +32,9 @@ public class Consulta {
     //Objetos pre-cadastrados.
     public void consultasPreCadastradas(){        
     	id++;
-    	listConsultas.add(new Consulta("Joao", "Felipe", "24/08/24", "09:30",id));
+    	listConsultas.add(new Consulta("Joao Silva", "Carlos Silva", "24/08/24", "09:30",id));
     	id++;
-        listConsultas.add(new Consulta("Maria", "Aline", "21/06/24", "11:00",id));
+        listConsultas.add(new Consulta("Maria Souza", "Daniela Matos", "21/06/24", "11:00",id));
     }
     
     public void agendarConsulta(Scanner sc) {
@@ -43,19 +43,24 @@ public class Consulta {
         sc.nextLine();
         System.out.print("MEDICO: "); 
         String medico = sc.nextLine();
+        
         System.out.print("PACIENTE: ");
         String paciente = sc.nextLine();
-        System.out.print("DATA: ");
-        String dataConsulta = sc.nextLine();
-        if(!validarData(dataConsulta)) {
-            throw new IllegalArgumentException("Data inválida. Insira no formato dd/mm/aaaa.");
+        
+        System.out.print("DATA(dd/mm/aa): ");        
+        String data = sc.nextLine();
+        if(!validarData(data)) {
+        	System.out.println("Data inválida! Insira no formato dd/mm/aa.");
+        	return;
         }
 
-        System.out.print("HORARIO: ");
+        System.out.print("HORARIO(HH:mm): ");
         String horario = sc.nextLine();
-        if(!validarHorario(horario)) {
-            throw new IllegalArgumentException("Horário inválido. Insira no formato HH:mm.");
+        if(!validarHorario(horario)) {         
+        	System.out.println("Horário inválido! Insira no formato HH:mm.");
+        	return;
         }
+
         id++;
         
         listConsultas.add(new Consulta(paciente, medico, data, horario, id));   
@@ -63,18 +68,16 @@ public class Consulta {
         System.out.println("Consulta agendada! ID-" + id);
         System.out.println();
     }
-        
-
-    public boolean validarData(String dataConsulta) {
-		// Definir o formato esperado da data
-		SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+    
+    // Definir o formato esperado da data
+    public boolean validarData(String dataConsulta) {		
+		SimpleDateFormat formatoData = new SimpleDateFormat("dd/mm/aaaa");
 		formatoData.setLenient(false); // Desativar modo tolerante
 
 		try {
 			// Tentar fazer o parsing da data
 			@SuppressWarnings("unused")
-			Date data = formatoData.parse(dataConsulta);
-			
+			Date data = formatoData.parse(dataConsulta);			
 			// Verificar se a data é válida (evita datas como 30 de fevereiro, etc.)
 			return true;
 		} catch (ParseException e) {
@@ -88,8 +91,8 @@ public class Consulta {
         String regex = "^([01]?[0-9]|2[0-3]):[0-5][0-9]$";
         return horario.matches(regex);
     }
-
-    public void editarConsulta() { //-------------REVER!
+    
+    public void editarConsulta() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Informe o ID da consulta: ");
         Integer idProcurado = sc.nextInt();
